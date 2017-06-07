@@ -1,7 +1,4 @@
 //: Playground - noun: a place where people can play
-
-import Cocoa
-
 //
 //  main.swift
 //  TestAssignment
@@ -17,15 +14,20 @@ class ATM {
     private var name: Character
     private var number: Character
     
-    init(name: Character, number: Character) {
-        self.name = name
-        self.number = number
+    init() {
+        self.name = "!"
+        self.number = "!"
     }
 }
 
 class ATMLogin {
     private var password: Character
     private var user: Character
+    
+    init() {
+        self.password = "!"
+        self.user = "!"
+    }
 }
 
 class Account {
@@ -34,18 +36,18 @@ class Account {
     private var overdraftLimit: Int
     private var owner: Character
     
-    init(initialBalance: Float, number: Character, overdraftLimit: Int, owner: Character) {
-        self.initialBalance = initialBalance
-        self.number = number
-        self.overdraftLimit = overdraftLimit
-        self.owner = owner
+    init() {
+        self.initialBalance = 0.0
+        self.number = "!"
+        self.overdraftLimit = 0
+        self.owner = "!"
     }
     
-    func getInitialBalance -> Float {
+    func getInitialBalance() -> Float {
         return self.initialBalance
     }
     
-    func getNumber -> Character {
+    func getNumber() -> Character {
         return self.number
     }
 }
@@ -55,16 +57,16 @@ class Bank {
     private var code: Character
     private var name: Character
     
-    init(code: Character, name: Character) {
-        self.code = code
-        self.name = name
+    init() {
+        self.code = "!"
+        self.name = "!"
     }
     
-    func getCode -> Character {
+    func getCode() -> Character {
         return self.code
     }
     
-    func getName -> Character {
+    func getName() -> Character {
         return self.name
     }
     
@@ -74,12 +76,9 @@ class Session {
     private var lastMessage: Character
     private var number: Character
     
-    func account() -> Account {
-        return Account();
-    }
-    
-    func bank() -> Bank {
-        return bank()
+    init(lastMessage: Character, number: Character) {
+        self.lastMessage = lastMessage
+        self.number = number
     }
 }
 
@@ -87,7 +86,12 @@ class Card {
     private var expirationDate: NSDate
     private var holderName: Character
     private var holderSurname: Character
-    private
+    
+    init(expirationDate: NSDate, holderName: Character, holderSurname: Character) {
+        self.expirationDate = expirationDate
+        self.holderName = holderName
+        self.holderSurname = holderSurname
+    }
 }
 
 
@@ -99,22 +103,15 @@ class Transaction {
     private var number: Int
     private var time: timeb
     
-    init(amount: Float, currentBalance: Int, date: NSDate, done: Bool, number: Int, time:timeb) {
-        self.amount = amount
-        self.currentBalance = currentBalance
-        self.date = date
-        self.done = done
-        self.number = number
-        self.time = time
+    init() {
+        self.amount = 0.0
+        self.currentBalance = 0
+        self.date = NSDate.distantPast() as NSDate  
+        self.done = false
+        self.number = 0
+        self.time = timeb.init()
     }
     
-    func account() ->Account {
-        return Account();
-    }
-    
-    func bank() ->Bank {
-        return Bank();
-    }
     
     class WithDrawal: Transaction {
         
@@ -131,6 +128,11 @@ class Transaction {
     class Transfer: Transaction {
         private var targetAccountNumber: Character
         private var targetBankCode: Character
+        
+         override init() {
+            self.targetAccountNumber = "!"
+            self.targetBankCode = "!"
+        }
         
         func setAccountNumber(accountNumber: Character) {
             self.targetAccountNumber = accountNumber
